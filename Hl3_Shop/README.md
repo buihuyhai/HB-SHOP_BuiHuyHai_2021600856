@@ -2,7 +2,6 @@
 
 ## Phạm vi dự án
 - Phát triển website thương mại điển tử
-- Tích hợp hệ thống thanh toán
 - Xây dựng hệ thống quản lý đơn hàng, sản phẩm, tồn kho sản phẩm và kho hàng
 - Triển khai các tính năng quản lý người dùng, người bán và sản phẩm
 
@@ -36,8 +35,8 @@
 4. Dashboard tồn kho sản phẩm cho người bán
 5. Optional:
     1. Api response time: p95 < 200ms
-    2. Dữ liệu cần import tối thiểu 1tr sản phẩm
-    3. Tìm kiếm sản phẩm theo hành vi của người dùng
+    2. Dữ liệu có thể import 1 triệu sản phẩm không gây giảm hiệu năng (Đang phát triển)
+    3. Tìm kiếm sản phẩm theo hành vi của người dùng (Đang phát triển)
 
 
 
