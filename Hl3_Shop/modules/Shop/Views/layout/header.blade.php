@@ -23,7 +23,7 @@
                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                     <li class="dropdown-header">
                         <h6>{{ $userLogin->name }}</h6>
-                        <span>{{ "Shop: " .$shop->name }}</span>
+                        <span>{{ "Cửa Hàng: " .$shop->name }}</span>
 
                     </li>
                     <li>
@@ -32,7 +32,7 @@
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('shops.updateShop') }}">
                             <i class="bi bi-gear"></i>
-                            <span>Info shop</span>
+                            <span>Thông tin cửa hàng</span>
                         </a>
                     </li>
 
@@ -43,7 +43,7 @@
                     <li>
                         <a class="dropdown-item d-flex align-items-center" href="{{ route('logout') }}">
                             <i class="bi bi-box-arrow-right"></i>
-                            <span>Sign Out</span>
+                            <span>Đăng Xuất</span>
                         </a>
                     </li>
 

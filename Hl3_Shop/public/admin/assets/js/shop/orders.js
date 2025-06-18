@@ -1,7 +1,7 @@
 
 async function genListOrders(pageNum = 1, email = "") {
-    let response = await api.getListOrder({pageNum, name})
-    if(Object.keys(response).length !== 0) {
+    let response = await api.getListOrder({ pageNum, name })
+    if (Object.keys(response).length !== 0) {
         let data = response.data.orders;
         console.log(data)
         let page = response.data.paginate;
@@ -16,16 +16,16 @@ async function genListOrders(pageNum = 1, email = "") {
         data.map((value, index) => {
             let total = formatNumberToVND(value.finalCost != null ? value.finalCost : 0)
             let status = ''
-            if (value.statusCode === 0){
+            if (value.statusCode === 0) {
                 status = `<span class="badge bg-danger">${value.status}</span>`
-            }else if (value.statusCode === 1){
+            } else if (value.statusCode === 1) {
                 status = `<span class="badge bg-warning text-dark">${value.status}</span>`
-            }else if (value.statusCode === 2){
+            } else if (value.statusCode === 2) {
                 status = `<span class="badge bg-success">${value.status}</span>`
             }
             html += `
                 <tr>
-                    <td>${index+1}</td>
+                    <td>${index + 1}</td>
                     <td>${value.customer}</td>
                     <td>${total}</td>
                     <td>${value.email}</td>
@@ -56,29 +56,60 @@ async function genListOrders(pageNum = 1, email = "") {
 }
 
 function changePage(page) {
-    if(page > 0){
+    if (page > 0) {
         genListOrders(page)
     }
 }
 
+let imageList = [
+    "thoi-trang.png",
+    "dien-tu.png",
+    "dien-thoai.png",
+    "do-choi.png",
+    "dong-ho.png",
+    "gia-dung.png",
+    "giat-du.png",
+    "giay-dep-nam.png",
+    "lam-dep.png",
+    "laptop.png",
+    "may-anh.png",
+    "mo-hinh.png",
+    "nuoc-hoa.png",
+    "phu-kien.png",
+    "sach.png",
+    "suc-khoe-the-thao.png",
+    "trang-suc.png",
+    "xe-may.png"
+];
+
+let imageMap = {};
+
+
+function getImageForItem(itemId) {
+    if (!imageMap[itemId]) {
+        let index = Math.floor(Math.random() * imageList.length);
+        imageMap[itemId] = `${baseUrl}storage/category/${imageList[index]}`;
+    }
+    return imageMap[itemId];
+}
 
 async function openDetailOrder(id = -1) {
     $('#open-order-detail').modal('show')
-    let response = await api.getDetailOrder({id})
+    let response = await api.getDetailOrder({ id })
     if (Object.keys(response).length !== 0) {
         let data = response.data;
         let htmlTable = ""
         let htmlInfo = ""
         let htmlFooter = '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>'
         let total = 0;
-        data.detail.map((function (item, index){
+        data.detail.map((function (item, index) {
             let sumEach = item.quantity * (item.sale_price - item.import_price)
             total += sumEach
             htmlTable += `
                 <tr>
-                    <td>${index+1}</td>
+                    <td>${index + 1}</td>
                     <td>
-                        <img src="${baseUrl}storage/${item.image}" class="img-fluid img-thumbnail" alt="Sheep" width="25" height="25">
+                        <img src="${getImageForItem(item.id)}" class="img-fluid img-thumbnail" alt="Product Image" width="50" height="50">
                     </td>
                     <td>${item.sale_price}</td>
                     <td>${item.import_price}</td>
@@ -103,10 +134,10 @@ async function openDetailOrder(id = -1) {
             <li class="list-group-item">Trạng thái : ${data.status}</li>
         `
         $('#open-order-detail #info').html(htmlInfo)
-        if(data.statusCode === 1){
-            htmlFooter+=
-                `<button type="button" class="btn btn-success" onclick="changeStatus(${data.id}, 2)">Confirm</button>
-                    <button type="button" class="btn btn-danger" onclick="changeStatus(${data.id}, 0)">Reject</button>
+        if (data.statusCode === 1) {
+            htmlFooter +=
+                `<button type="button" class="btn btn-success" onclick="changeStatus(${data.id}, 2)">Xác nhận</button>
+                    <button type="button" class="btn btn-danger" onclick="changeStatus(${data.id}, 0)">Từ chối</button>
                 `
         }
         $('#open-order-detail #modal-footer').html(htmlFooter)
@@ -115,16 +146,16 @@ async function openDetailOrder(id = -1) {
 
 
 async function changeStatus(orderId = null, status = false) {
-    let response = await api.changeStatusOrder({id: orderId, status})
+    let response = await api.changeStatusOrder({ id: orderId, status })
     if (response.success) {
         genListOrders()
         $('#open-order-detail').modal('hide')
-        $.notify("change status success", "success");
-    }else{
-        $.notify("change status error", "error");
+        $.notify("Xác nhận đơn hàng thành công", "success");
+    } else {
+        $.notify("Hủy đơn hàng thành công", "error");
     }
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     genListOrders()
 });

@@ -66,10 +66,10 @@
                 <nav class="navbar navbar-expand-lg col-md-12 row ">
                     <div class="collapse navbar-collapse row col-md-12 bg-white" id="navbarNavAltMarkup">
                         <div class="navbar-nav col-12 row">
-                            <a class="nav-item filter-order nav-link col-md-3 active" data-type="all">Tất cả</a>
-                            <a class="nav-item filter-order nav-link col-md-3" data-type="pending">Chờ xác nhận</a>
-                            <a class="nav-item filter-order nav-link col-md-3" data-type="success">Thành công</a>
-                            <a class="nav-item filter-order nav-link col-md-3" data-type="cancel">Đã huỷ</a>
+                            <a class="nav-item filter-order nav-link col-md-3 active" data-type="all" style="cursor: pointer;">Tất cả</a>
+                            <a class="nav-item filter-order nav-link col-md-3" data-type="pending" style="cursor: pointer;">Chờ xác nhận</a>
+                            <a class="nav-item filter-order nav-link col-md-3" data-type="success" style="cursor: pointer;">Thành công</a>
+                            <a class="nav-item filter-order nav-link col-md-3" data-type="cancel" style="cursor: pointer;">Đã huỷ</a>
                         </div>
                     </div>
                 </nav>
